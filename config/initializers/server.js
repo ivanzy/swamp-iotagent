@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const config = require('nconf');
 var app;
 
-Message = require('../../models/message');
+//Message = require('../../models/message');
 
 var start = callback => {
 

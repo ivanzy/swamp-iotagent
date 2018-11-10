@@ -6,17 +6,17 @@ const LoraMessage = require('../models/lora-message');
 
 
 
-module.exports.sub = callback => {
+// module.exports.sub = callback => {
 
-  console.log(`subscribing to mqtt://${config.get("MQTT_BROKER")}`);
-  //connecting to broker
-  const client = mqtt.connect(`mqtt://${config.get("MQTT_BROKER")}`);
-  //subscribing to configure topics
-  for (topic of param.mqttTopics) {
-    client.subscribe(topic);
-  }
-  monitoreMessage(client);
-};
+//   console.log(`subscribing to mqtt://${config.get("MQTT_BROKER")}`);
+//   //connecting to broker
+//   const client = mqtt.connect(`mqtt://${config.get("MQTT_BROKER")}`);
+//   //subscribing to configure topics
+//   for (topic of param.mqttTopics) {
+//     client.subscribe(topic);
+//   }
+//   monitoreMessage(client);
+// };
 
 module.exports.subscribeToTopic = (topic) => {
   console.log(`Subscribing to ${topic}`);
@@ -43,5 +43,9 @@ var monitoreMessage = (client) =>{
     LoraMessage.addLoraMessage(JSON.stringify(message.toString()), (err, msg) => {
       if (err) throw err;
     });
+
+    //process a new message
+    processedMessage = processor.process(message);
+
   });
 }
