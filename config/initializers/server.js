@@ -3,10 +3,7 @@ const bodyParser = require('body-parser');
 const config = require('nconf');
 var app;
 
-//Message = require('../../models/message');
-
 var start = callback => {
-
   app = express();
   app.use(bodyParser.json());
   

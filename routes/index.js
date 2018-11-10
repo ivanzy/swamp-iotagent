@@ -4,7 +4,7 @@ const express = require('express');
 const routes = require('require-dir')();
 
 module.exports = (app) => {
-   
+
    //config empty route
    app.get('/', (req, res) => res.send('documentation for api'));
 

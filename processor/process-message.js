@@ -3,7 +3,7 @@ const publisher = require("../publisher/publisher");
 module.exports.processMessage = (entity, message) => {
   decoded_data = decode64toAscii(message.data);
   ngsi_message = struture_attributes(decoded_data, entity);
-  publisher.uodateEntity(ngsi_message, entity.orion_address);
+  publisher.updateEntity(ngsi_message, entity.orion_address);
 };
 
 module.exports.createMessage = entity => {
