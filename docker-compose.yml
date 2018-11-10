@@ -1,0 +1,29 @@
+version: "2"
+
+networks: 
+  default:
+    external:
+      name: mynetwork
+
+services:
+  app:
+    container_name: preprocessor
+    restart: always
+    build: .
+    ports:
+      - "3000:3000"
+    links:
+      - mongo
+      - mqtt
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
+  mqtt:
+    container_name: mqtt
+    image: eclipse-mosquitto:latest
+    ports: 
+      - "1883:1883"
