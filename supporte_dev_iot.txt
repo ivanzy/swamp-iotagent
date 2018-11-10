@@ -16,7 +16,8 @@ curl -iX POST \
      ],
 	 "dev_eui": "0123456789012345",
 	 "application_id": "1",
-	 "broker_address":"localhost"
+	 "broker_address":"localhost",
+	 "orion_addrress": "localhost"
    }
  ]
 }'
@@ -30,3 +31,4 @@ mosquitto_pub -h "localhost" -t "application/1/device/0123456789012345/rx" -m "{
 
 mosquitto_pub -h "localhost" -t "application/1/device/0123456789012345/rx" -m "{"applicationID":"1","applicationName":"app-lana","deviceName":"dragino","devEUI":"0123456789012345","txInfo":{"frequency":914900000,"dr":5},"adr":true,"fCnt":559,"fPort":1,"data":"MTM2LjcyAAAAAAAAAAAAAAAAAA=="}"
 
+git remote set-url origin https://github.com/ivanzy/swamp-iotagent.git

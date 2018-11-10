@@ -31,6 +31,10 @@ const entitySchema = mongoose.Schema({
  broker_address:{
     type: String,
     required: true
+ },
+ orion_address:{ 
+    type: String,
+    required:true
  }
 });
 

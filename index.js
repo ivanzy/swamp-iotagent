@@ -14,16 +14,14 @@ const db = require("./config/initializers/database");
 const subscribe = require("./mqtt/subscribe");
 
 //initializing db
-async.series([callback => db(callback), function(err) {
-  if (err) console.log("MongoDB initialization failed: " + err);
-  else console.log("MongoDB initialized SUCCESSFULLY");
-}]);
+async.series([callback => db(callback), param.loadEntities], function(err) {
+  if (err) console.log("Initialization failed" + err);
+  else console.log("Initialized SUCCESSFULLY");
+});
 
 //initializing modules
 async.parallel(
   [
-    //subscribing to MQTT broker
-    //callback => subscribe.sub(callback),
     //initalizing server
     callback => server(callback)
   ],
