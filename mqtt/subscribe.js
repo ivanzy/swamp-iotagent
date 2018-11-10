@@ -6,19 +6,9 @@ const LoraMessage = require('../models/lora-message');
 
 
 
-// module.exports.sub = callback => {
+module.exports.entityWatcher = (entity) => {
+  let topic =   (`application/${entity.application_id}/device/${entity.dev_eui}/rx`);
 
-//   console.log(`subscribing to mqtt://${config.get("MQTT_BROKER")}`);
-//   //connecting to broker
-//   const client = mqtt.connect(`mqtt://${config.get("MQTT_BROKER")}`);
-//   //subscribing to configure topics
-//   for (topic of param.mqttTopics) {
-//     client.subscribe(topic);
-//   }
-//   monitoreMessage(client);
-// };
-
-module.exports.subscribeToTopic = (topic) => {
   console.log(`Subscribing to ${topic}`);
   //connecting to broker
   const client = mqtt.connect(`mqtt://${config.get("MQTT_BROKER")}`);
@@ -26,26 +16,26 @@ module.exports.subscribeToTopic = (topic) => {
   //subscribing to configure topics
   client.subscribe(topic);
 
-  monitoreMessage(client);
+  monitoreMessage(client, entity);
   
 };
 
-var monitoreMessage = (client) =>{
+var monitoreMessage = (client, entity) =>{
   //message event
   client.on("message", (topic, message) => {
     console.log(
       `MQTT message topic: ${topic} payload:${message.toString()} time:${new Date()}`
     ); 
-    message = message.toString();
-    console.log(message);
+    message = JSON.parse(message.toString());
+    
  
     //add to lora message collection
-    LoraMessage.addLoraMessage(JSON.stringify(message.toString()), (err, msg) => {
+    LoraMessage.addLoraMessage(message, (err, msg) => {
       if (err) throw err;
     });
 
     //process a new message
-    processedMessage = processor.process(message);
+    processedMessage = processor.processMessage(entity,message);
 
   });
 }

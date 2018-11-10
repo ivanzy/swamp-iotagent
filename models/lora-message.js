@@ -53,7 +53,7 @@ module.exports.getLoraMessageById = (_id, callback) => {
 
 //post new rawMessage
 module.exports.addLoraMessage = (msg, callback) => {
-  console.log(" adding new LoRa Message:" + msg);
+  console.log(" adding new LoRa Message:" + JSON.stringify(msg));
   loraMessage.create(msg, callback);
 };
 

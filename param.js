@@ -11,7 +11,6 @@ module.exports.loadEntities = () =>{
 }
 
 
-
 module.exports.findTresholdByField = field => {
   for (param of module.exports.treshold ) {
     if (field == param.field) return (param);

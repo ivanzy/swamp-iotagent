@@ -1,7 +1,7 @@
 Entity = require('../models/entity');
 Attribute = require('../models/attribute');
 subscriber = require('../mqtt/subscribe');
-
+process = require('../processor/process-message');
 
 module.exports = router => {
    //get message by id
@@ -24,15 +24,6 @@ module.exports = router => {
      //post new message
      .post((req, res) => {
        let msg = req.body.devices[0];
-      //  console.log(`new entity is going to be register: ${JSON.stringify(msg)}`);
-      //  console.log(msg.entity_name);
-      //  console.log(msg.entity_type);
-      //  console.log(msg.timezone);
-      //  console.log("Attributes: "+ msg.attributes+ " type: " +typeof(msg.attributes));
-      //  console.log(msg.dev_eui);
-      //  console.log(msg.application_id);
-      //  console.log(msg.broker_address);
-
        Entity.addEntity(msg, (err, msg) => {
          if (err) throw err;
          else{
@@ -43,9 +34,9 @@ module.exports = router => {
                Attribute.addAttribute(attribute, (err,attribute) =>{
                   if(err) throw err;
                });
-
             }
-            subscriber.subscribeToTopic(`application/${msg.application_id}/device/${msg.dev_eui}/rx`);
+            process.createMessage(msg);
+            subscriber.entityWatcher(msg);
          }
        });
      });

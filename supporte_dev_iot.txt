@@ -7,9 +7,8 @@ curl -iX POST \
  "devices": [
    {
      "device_id":   "dragino",
-     "entity_name": "urn:ngsd-ld:Dragino:1",
+     "entity_name": "urn:ngsd-ld:TESTE:1",
      "entity_type": "Probe",
-     "timezone":    "America/Sao_Paulo",
      "attributes": [
        { "object_id": "t", "name": "teste",  "type": "Float" },
 	   { "object_id": "y", "name": "teste2", "type": "Float" }
@@ -17,18 +16,23 @@ curl -iX POST \
 	 "dev_eui": "0123456789012345",
 	 "application_id": "1",
 	 "broker_address":"localhost",
-	 "orion_addrress": "localhost"
+	 "orion_address": "172.17.132.164"
    }
  ]
 }'
 
 
 
-mosquitto_pub -h "localhost" -t "application/1/device/0123456789012345/rx" -m "\"{\"applicationID\":\"1\",\"applicationName\":\"app-lana\",\"deviceName\":\"dragino\",\"devEUI\":\"0123456789012345\",\"txInfo\":{\"frequency\":914900000,\"dr\":5},\"adr\":true,\"fCnt\":559,\"fPort\":1,\"data\":\"MTM2LjcyAAAAAAAAAAAAAAAAAA==\"}\""
-
-mosquitto_pub -h "localhost" -t "application/1/device/0123456789012345/rx" -m "{\"applicationID\":\"1\",\"applicationName\":\"app-lana\",\"deviceName\":\"dragino\",\"devEUI\":\"0123456789012345\",\"txInfo\":{\"frequency\":914900000,\"dr\":5},\"adr\":true,\"fCnt\":559,\"fPort\":1,\"data\":\"MTM2LjcyAAAAAAAAAAAAAAAAAA==\"}"
-
-
-mosquitto_pub -h "localhost" -t "application/1/device/0123456789012345/rx" -m "{"applicationID":"1","applicationName":"app-lana","deviceName":"dragino","devEUI":"0123456789012345","txInfo":{"frequency":914900000,"dr":5},"adr":true,"fCnt":559,"fPort":1,"data":"MTM2LjcyAAAAAAAAAAAAAAAAAA=="}"
+ mosquitto_pub -h "localhost" -t "application/1/device/0123456789012345/rx" -m "{\"applicationID\":\"1\",\"applicationName\":\"app-lana\",\"deviceName\":\"dragino\",\"devEUI\":\"0123456789012345\",\"txInfo\":{\"frequency\":914900000,\"dr\":5},\"adr\":true,\"fCnt\":559,\"fPort\":1,\"data\":\"dHwyMC4wfHl8MTIz\"}"
 
 git remote set-url origin https://github.com/ivanzy/swamp-iotagent.git
+
+curl -X POST 'http://172.17.132.164:1026/v2/entities' -H 'Content-Type:application/json' -d '{"id":"urn:ngsd-ld:Dragino:1","type":"Probe","timezone":"America/Sao_Paulo","teste":{"value":"20.0","type":"Float"},"teste2":{"value":"123","type":"Float"}}'
+
+curl 172.17.132.164:1026/v2/entities -s -S --header 'Content-Type: application/json' -d '{"id":"urn:ngsd-ld:Dragino:1","type":"Probe","timezone":"America/Sao_Paulo","teste":{"value":"20.0","type":"Float"},"teste2":{"value":"123","type":"Float"}}'
+
+
+
+
+curl 172.17.132.164:1026/v2/entities -s -S --header 'Content-Type: application/json' -d '{"id":"urn:ngsd-ld:Dragino:1","type":"Probe","teste":{"value":"20.0","type":"Float"},"teste2":{"value":"123","type":"Float"}}'
+

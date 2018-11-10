@@ -1,40 +1,41 @@
-const param = require("../param");
-const axios = require("axios");
-const nconf = require("nconf");
+const publisher = require("../publisher/publisher");
 
-module.exports.process = message => {
-  //convert JSON string to JavaScript Object
-  let msg = JSON.parse(message.toString());
-  let checkedMessage = checkAnomaly(msg);
-  return checkedMessage;
+module.exports.processMessage = (entity, message) => {
+  decoded_data = decode64toAscii(message.data);
+  ngsi_message = struture_attributes(decoded_data, entity);
+  publisher.uodateEntity(ngsi_message, entity.orion_address);
 };
 
-var checkAnomaly = msg => {
-  var isAnomaly = false;
-  //look for any tresholds
-  for (let prop in msg) {
-    for (let item of param.treshold)
-      if (item.field == prop)
-        if (msg[prop] > item.treshold && msg[prop]!="undefined") {
-          isAnomaly = true;
-          console.log("ANOMALY detected in " + item.field + " field");
-          axios
-            .post(`http://${nconf.get("ANALYTICS_ADDRESS")}/errorHandler`, msg)
-            .then(response => console.log("Detected error sent"))
-            .catch(error =>
-              console.log("could not connect to analytics server to send ANOMALY"));
-          return { valid: false };
+module.exports.createMessage = entity => {
+  ngsi_message = strutureCreateEntity(entity);
+  publisher.createEntity(ngsi_message, entity.orion_address);
+};
+
+decode64toAscii = data => new Buffer(data, "base64").toString("ascii");
+struture_attributes = (attr, entity) => {
+  let attributes_structured = {};
+  let split_data = attr.split("|");
+  for (let i = 0; i <= split_data.length; i++) {
+    if (i % 2 == 0) {
+      for (attribute of entity.attributes) {
+        if (attribute.object_id == split_data[i]) {
+          let temp = { value: split_data[++i], type: attribute.type };
+          attributes_structured[attribute.name] = temp;
         }
+      }
+    }
   }
-  if (!isAnomaly) {
-    console.log("VALID MESSAGE");
-    axios
-      .post(
-        `http://${nconf.get("REASONER_ADDRESS")}:${nconf.get("REASONER_PORT")}/message`,msg)
-      .then(response => console.log("message sent to reasoner"))
-      .catch(error =>
-        console.log("could not connect to reasoner server to send NEW MESSAGE")
-      );
+  return attributes_structured;
+};
+
+strutureCreateEntity = entity => {
+  let attributes_structured = {};
+  attributes_structured.id = entity.entity_name;
+  attributes_structured.type = entity.entity_type;
+  attributes_structured.timezone = entity.timezone;
+  for (attribute of entity.attributes) {
+    let temp = { value: {}, type: attribute.type };
+    attributes_structured[attribute.name] = temp;
   }
-  return { valid: true, message: msg };
+  return attributes_structured;
 };
