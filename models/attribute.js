@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+// Atrribute from entity data model
+
 const attributeSchema = mongoose.Schema({
   entity_name: {
      type:String,

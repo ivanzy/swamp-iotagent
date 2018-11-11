@@ -1,17 +1,26 @@
 const publisher = require("../publisher/publisher");
 
 module.exports.processMessage = (entity, message) => {
+
+  //LoRa code messages using base64, now we are going to decode to ascii
   decoded_data = decode64toAscii(message.data);
+
+  //translate LoRa JSON to NGSI JSON
   ngsi_message = struture_attributes(decoded_data, entity);
-  publisher.updateEntity(ngsi_message, entity.orion_address);
+
+  //send NGSI message to Orion Context Broker
+  publisher.updateEntity(ngsi_message, entity.orion_address, entity.entity_name);
 };
 
-module.exports.createMessage = entity => {
+//Create a new entity in Orion Context Broker
+module.exports.createEntity = entity => {
   ngsi_message = strutureCreateEntity(entity);
   publisher.createEntity(ngsi_message, entity.orion_address);
 };
 
 decode64toAscii = data => new Buffer(data, "base64").toString("ascii");
+
+
 struture_attributes = (attr, entity) => {
   let attributes_structured = {};
   let split_data = attr.split("|");

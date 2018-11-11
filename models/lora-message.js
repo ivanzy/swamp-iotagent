@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+// Raw LoRa message data model
+
 const loraMessageSchema = mongoose.Schema({
   applicationID: {
     type: String
@@ -39,25 +41,25 @@ const loraMessage = (module.exports = mongoose.model(
   loraMessageSchema
 ));
 
-//Get rawMessages
+//Get LoRaMessage
 module.exports.getLoraMessage = (callback, limit) => {
   console.log("getting all the LoraMessages");
   loraMessage.find(callback).limit(limit);
 };
 
-//Get rawMessages by id
+//Get LoRaMessage by id
 module.exports.getLoraMessageById = (_id, callback) => {
   console.log("get raw message by id:" + _id);
   loraMessage.findById(_id, callback);
 };
 
-//post new rawMessage
+//post new LoRaMessage
 module.exports.addLoraMessage = (msg, callback) => {
   console.log(" adding new LoRa Message:" + JSON.stringify(msg));
   loraMessage.create(msg, callback);
 };
 
-// Delete rawMessage
+// Delete LoRaMessage
 module.exports.removeLora
 
 Message = (_id, callback) => {

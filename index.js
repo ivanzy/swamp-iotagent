@@ -12,7 +12,7 @@ const server = require("./config/initializers/server");
 const db = require("./config/initializers/database");
 const subscribe = require("./mqtt/subscribe");
 
-//initializing db
+//initializing MongoDB and loading Entities from database
 async.series([ callback => db(callback) , param.loadEntities], function(err) {
   if (err) console.log("Initialization failed" + err);
   else console.log("Initialized SUCCESSFULLY");
@@ -21,14 +21,3 @@ async.series([ callback => db(callback) , param.loadEntities], function(err) {
 
 //initializing modules
 server(()=>{});
-// initializing modules
-// async.parallel(
-//   [
-//     //initalizing server
-//     callback => server(callback)
-//   ],
-//   function(err) {
-//     if (err) console.log("SWAMP IoT Agent initialization failed" + err);
-//     else console.log("SWAMP IoT Agent initialized SUCCESSFULLY");
-//   }
-// );

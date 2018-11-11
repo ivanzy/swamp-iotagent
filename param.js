@@ -9,3 +9,5 @@ module.exports.loadEntities = () =>{
     }
  });
 }
+
+//Subscribe in all entities which exist

@@ -4,8 +4,8 @@ processor = require('../processor/process-message');
 subscriber = require('../mqtt/subscribe');
 
 module.exports = router => {
-
-   //get message by id
+   //TODO imporve iot API
+   //get entity by id
    router.route("/id/:_id").get((req, res) => {
       RawMessage.getRawMessageById(req.params._id, (err, msg) => {
        if (err) throw err;
@@ -22,7 +22,7 @@ module.exports = router => {
          else res.json(msg);
        });
      })
-     //post new message
+     //TODO
      .post((req, res) => {
        let msg = req.body.devices[0];
        Entity.addEntity(msg, (err, msg) => {
@@ -36,7 +36,7 @@ module.exports = router => {
                   if(err) throw err;
                });
             }
-            processor.createMessage(msg);
+            processor.createEntity(msg);
             subscriber.entityWatcher(msg);
          }
        });

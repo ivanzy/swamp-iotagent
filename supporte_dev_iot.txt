@@ -7,7 +7,7 @@ curl -iX POST \
  "devices": [
    {
      "device_id":   "dragino",
-     "entity_name": "urn:ngsd-ld:TESTE:1",
+     "entity_name": "urn:ngsd-ld:Dragino:5",
      "entity_type": "Probe",
      "attributes": [
        { "object_id": "t", "name": "teste",  "type": "Float" },
@@ -23,7 +23,7 @@ curl -iX POST \
 
 
 
- mosquitto_pub -h "localhost" -t "application/1/device/0123456789012345/rx" -m "{\"applicationID\":\"1\",\"applicationName\":\"app-lana\",\"deviceName\":\"dragino\",\"devEUI\":\"0123456789012345\",\"txInfo\":{\"frequency\":914900000,\"dr\":5},\"adr\":true,\"fCnt\":559,\"fPort\":1,\"data\":\"dHwyMC4wfHl8MTIz\"}"
+ mosquitto_pub -h "localhost" -t "application/1/device/0123456789012345/rx" -m "{\"applicationID\":\"1\",\"applicationName\":\"app-lana\",\"deviceName\":\"dragino\",\"devEUI\":\"0123456789012345\",\"txInfo\":{\"frequency\":914900000,\"dr\":5},\"adr\":true,\"fCnt\":559,\"fPort\":1,\"data\":\"dHwxM3x5fDEz\"}"
 
 git remote set-url origin https://github.com/ivanzy/swamp-iotagent.git
 
@@ -35,4 +35,9 @@ curl 172.17.132.164:1026/v2/entities -s -S --header 'Content-Type: application/j
 
 
 curl 172.17.132.164:1026/v2/entities -s -S --header 'Content-Type: application/json' -d '{"id":"urn:ngsd-ld:Dragino:1","type":"Probe","teste":{"value":"20.0","type":"Float"},"teste2":{"value":"123","type":"Float"}}'
+
+
+curl 172.17.132.164:1026/v2/entities/urn:ngsd-ld:Dragino:5/attrs --header 'Content-Type: application/json' -X PATCH -d '{"teste":{"value":"99999.0","type":"Float"},"teste2":{"value":"1","type":"Float"}}'
+
+
 
