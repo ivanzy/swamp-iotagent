@@ -1,13 +1,15 @@
-Entity = require('./models/entity')
+Entity = require("./models/entity");
+const subscriber = require("./mqtt/subscribe");
 
-
-module.exports.loadEntities = () =>{
-  Entity.getEntity((err, msg)=>{
+module.exports.loadEntities = () => {
+  //load all entities in entities
+  Entity.getEntity((err, msg) => {
     if (err) throw err;
-    else{
-       module.exports.entities = msg;
+    else {
+      module.exports.entities = msg;
+      console.log("Subscribing in all stored entities:");
+      for (entity of msg) subscriber.entityWatcher(entity);
     }
- });
-}
-
-//Subscribe in all entities which exist
+  });
+};
+ 

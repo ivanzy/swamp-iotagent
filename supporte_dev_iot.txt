@@ -7,19 +7,70 @@ curl -iX POST \
  "devices": [
    {
      "device_id":   "dragino",
-     "entity_name": "urn:ngsd-ld:Dragino:5",
+     "entity_name": "urn:ngsd-ld:Dragino:1",
      "entity_type": "Probe",
      "attributes": [
-       { "object_id": "t", "name": "teste",  "type": "Float" },
-	   { "object_id": "y", "name": "teste2", "type": "Float" }
+       { "object_id": "t", "name": "temperature",  "type": "Float" },
+	   { "object_id": "m", "name": "moisture", "type": "Float" }
      ],
 	 "dev_eui": "0123456789012345",
 	 "application_id": "1",
 	 "broker_address":"localhost",
-	 "orion_address": "172.17.132.164"
+	 "orion_address": "localhost"
    }
  ]
 }'
+
+
+
+curl -iX POST \
+  'http://localhost:3000/iot/devices' \
+  -H 'Content-Type: application/json' \
+  -H 'fiware-service: openiot' \
+  -H 'fiware-servicepath: /' \
+  -d '{
+ "devices": [
+   {
+     "device_id":   "dragino",
+     "entity_name": "urn:ngsd-ld:Dragino:2",
+     "entity_type": "Probe",
+     "attributes": [
+       { "object_id": "t", "name": "temperature",  "type": "Float" },
+	   { "object_id": "m", "name": "moisture", "type": "Float" }
+     ],
+	 "dev_eui": "0000000000000000",
+	 "application_id": "2",
+	 "broker_address":"localhost",
+	 "orion_address": "localhost"
+   }
+ ]
+}'
+
+curl -iX POST \
+  'http://localhost:3000/iot/devices' \
+  -H 'Content-Type: application/json' \
+  -H 'fiware-service: openiot' \
+  -H 'fiware-servicepath: /' \
+  -d '{
+ "devices": [
+   {
+     "device_id":   "dragino",
+     "entity_name": "urn:ngsd-ld:Dragino:3",
+     "entity_type": "Probe",
+     "attributes": [
+       { "object_id": "t", "name": "temperature",  "type": "Float" },
+	   { "object_id": "m", "name": "moisture", "type": "Float" }
+     ],
+	 "dev_eui": "0000000000000001",
+	 "application_id": "3",
+	 "broker_address":"localhost",
+	 "orion_address": "localhost"
+   }
+ ]
+}'
+
+
+
 
 
 

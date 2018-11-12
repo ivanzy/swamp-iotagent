@@ -1,6 +1,5 @@
 const mqtt = require("mqtt");
 const config = require("nconf");
-const param = require("../param");
 const processor = require("../processor/process-message");
 const LoraMessage = require('../models/lora-message');
 
