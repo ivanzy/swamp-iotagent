@@ -28,25 +28,25 @@ const attribute = (module.exports = mongoose.model(
 
 //Get attribute
 module.exports.getAttribute = (callback, limit) => {
-  console.log("getting all the attribute");
+  console.log("Getting all the attributes");
   attribute.find(callback).limit(limit);
 };
 
 //Get attribute by id
 module.exports.getAttributeById = (_id, callback) => {
-  console.log("get attribute message by id:" + _id);
+  console.log("Get attribute by id:" + _id);
   attribute.findById(_id, callback);
 };
 
 //Get attribute by entity
 module.exports.getAttributeById = (entity_name, callback) => {
-   console.log("get attribute message by Entity:" + _id); 
+   console.log("Get attribute by ENTITY:" + _id); 
    attribute.find({ entity_name: entity_name}, callback); 
 };
 
 //post new attribute
 module.exports.addAttribute = (attr, callback) => {
-  console.log("adding new attribute:" + JSON.stringify(attr));
+  console.log("Adding new attribute:" + JSON.stringify(attr));
   attribute.create(attr, callback);
 };
 

@@ -47,7 +47,7 @@ const entity = (module.exports = mongoose.model(
 
 //Get all entities
 module.exports.getEntity = (callback, limit) => {
-  console.log("Getting all the entities");
+  console.log("Getting all the ENTITIES");
   entity.find(callback).limit(limit);
 };
 
@@ -83,7 +83,7 @@ module.exports.addEntity = (msg, callback) => {
 
 // Delete Entity
 module.exports.removeEntity = (_id, callback) => {
-   console.log("removing ENTITY...");
+   console.log("Removing ENTITY...");
     let query = {_id: _id};
     Entity.remove(query, callback);
  }

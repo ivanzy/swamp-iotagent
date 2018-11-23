@@ -43,19 +43,19 @@ const loraMessage = (module.exports = mongoose.model(
 
 //Get LoRaMessage
 module.exports.getLoraMessage = (callback, limit) => {
-  console.log("getting all the LoraMessages");
+  console.log("Getting all the LoRa Messages");
   loraMessage.find(callback).limit(limit);
 };
 
 //Get LoRaMessage by id
 module.exports.getLoraMessageById = (_id, callback) => {
-  console.log("get raw message by id:" + _id);
+  console.log("Get LoRa Messages by id:" + _id);
   loraMessage.findById(_id, callback);
 };
 
 //post new LoRaMessage
 module.exports.addLoraMessage = (msg, callback) => {
-  console.log(" adding new LoRa Message:" + JSON.stringify(msg));
+  console.log("Adding new LoRa Message:" + JSON.stringify(msg));
   loraMessage.create(msg, callback);
 };
 
