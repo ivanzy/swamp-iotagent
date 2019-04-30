@@ -8,10 +8,9 @@ const LoraMessage = require('../models/lora-message');
 module.exports.entityWatcher = (entity) => {
   let topic =   (`application/${entity.application_id}/device/${entity.dev_eui}/rx`);
 
-  console.log(`Subscribing to ${topic}`);
+  console.log(`Subscribing to ${topic} in address ${entity.broker_address}`);
   //connecting to broker
-  const client = mqtt.connect(`mqtt://${config.get("MQTT_BROKER")}`);
-
+  const client = mqtt.connect(`mqtt://${entity.broker_address}`);
   //subscribing to configure topics
   client.subscribe(topic);
 
@@ -22,6 +21,7 @@ module.exports.entityWatcher = (entity) => {
 var monitoreMessage = (client, entity) =>{
   //message event
   client.on("message", (topic, message) => {
+    
     console.log(
       `MQTT message topic: ${topic} payload:${message.toString()} time:${new Date()}`
     ); 
