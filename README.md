@@ -5,7 +5,7 @@ format and sent it to Orion. There  is not an official and stable IoT Agent that
 sensor/entity mapping.
 
 In order to create a mapping between a IoT LoRa device and a entity, there is the need to inform IoT Agent about this mapping. 
-
+```
 curl -iX POST \
   'http://localhost:3456/iot/devices' \
   -H 'Content-Type: application/json' \
@@ -31,6 +31,8 @@ curl -iX POST \
    }
  ]
 }'
+```
+
 
 'http://localhost:3456/iot/devices' -> address of the running instance of the IoT Agent
 "entity_name": "urn:ngsd-ld:IoTDevice:1" -> name of the entity that will be created in Orion
@@ -41,7 +43,10 @@ curl -iX POST \
 "orion_address": "orion" -> address of the Orion broker
 
 In order to check the devices in IoT Agent:
+```
 curl -iX GET 'http://localhost:3456/iot/devices' 
+```
+
 
 
 
