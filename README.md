@@ -34,13 +34,13 @@ curl -iX POST \
 ```
 
 
-'http://localhost:3456/iot/devices' -> address of the running instance of the IoT Agent
-"entity_name": "urn:ngsd-ld:IoTDevice:1" -> name of the entity that will be created in Orion
-"entity_type": "LoRaSensor" -> type of the entity that will be created in Orion
-"dev_eui": "0102030405060708" -> device EUI of LoRa
-"application_id": "1" -> application ID of the sensors (LoRa app Service that provides this information)
-"broker_address":"mosquitto" -> address of the MQTT broker
-"orion_address": "orion" -> address of the Orion broker
+'http://localhost:3456/iot/devices' -> address of the running instance of the IoT Agent <br>
+"entity_name": "urn:ngsd-ld:IoTDevice:1" -> name of the entity that will be created in Orion<br>
+"entity_type": "LoRaSensor" -> type of the entity that will be created in Orion<br>
+"dev_eui": "0102030405060708" -> device EUI of LoRa<br>
+"application_id": "1" -> application ID of the sensors (LoRa app Service that provides this information)<br>
+"broker_address":"mosquitto" -> address of the MQTT broker<br>
+"orion_address": "orion" -> address of the Orion broker<br>
 
 In order to check the devices in IoT Agent:
 ```
