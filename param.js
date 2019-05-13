@@ -13,6 +13,5 @@ module.exports.loadEntities = () => {
       }
     });
   }, 2000);
-
 };
  

@@ -27,7 +27,6 @@ module.exports = router => {
       let msg = req.body.devices[0];
       let temp = Entity.getEntityByName(msg.entity_name);
       if (Entity.getEntityByName(msg.entity_name) == undefined) {
-        console.log(`NEW ENTITY: ${ JSON.stringify(msg)}`);
         Entity.addEntity(msg, (err, msg) => {
           if (err) throw err;
           else {
@@ -40,14 +39,14 @@ module.exports = router => {
               });
             }
             processor.createEntity(msg);
-            res.json({ ok : ("ENTITY CREATED: "+JSON.stringify(msg))});
             subscriber.entityWatcher(msg);
           }
         });
       } else{
-        let err_msg = "DUPLICATE ENTITY - There is already an ENTITY with the same name: "+ msg.entity_name;
+        let err_msg = "DUPLICATE ENTITY - There is already an ENTITY with the same name: "+ msg$
         console.log(err_msg);
         res.json({ error : err_msg});
       }
     });
 };
+

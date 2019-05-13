@@ -1,7 +1,9 @@
-const axios = require("axios");
+const axios = require('axios')
 
 module.exports.createEntity = (message, orion_address) => {
-  let axiosConfig = {
+  console.log("\n\nGOING TO CREATE ENTITY:" + message + "\n\n");
+
+ let axiosConfig = {
     headers: {
       "Content-Type": "application/json",
       "Fiware-Service": "openiot",
@@ -9,7 +11,6 @@ module.exports.createEntity = (message, orion_address) => {
     }
   };
 
-  console.log("\n\nGOING TO CREATE ENTITY:" + message + "\n\n");
   axios
     .post(
       `http://${orion_address}:1026/v2/entities`,
@@ -20,7 +21,7 @@ module.exports.createEntity = (message, orion_address) => {
       console.log(
         `MESSAGE SENT TO ORION - statusCode: ${
           res.statusCode
-        }, message is ${JSON.stringify(message)} to http://${orion_address}:1026/v2/entities`
+        }, message is ${message} to http://${orion_address}:1026/v2/entities`
       );
       console.log(res);
     })
@@ -37,10 +38,12 @@ module.exports.updateEntity = (message, orion_address, entity_name) => {
       "Fiware-ServicePath": "/"
     }
   };
+  console.log("UPDATING ENTITY - " + JSON.stringify(message));
   axios
     .patch(
       `http://${orion_address}:1026/v2/entities/${entity_name}/attrs`,
-      message
+      message,
+      axiosConfig
     )
     .then(res => {
       console.log(
@@ -54,3 +57,12 @@ module.exports.updateEntity = (message, orion_address, entity_name) => {
       console.error(error);
     });
 };
+
+
+
+
+
+
+
+
+
